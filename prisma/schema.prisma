@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Book {
+  id          Int       @id @default(autoincrement())
+  title       String
+  author      String
+  isbn        String
+  published_year Int
+  genre       String
+  available   Boolean
+  loans       Loan[]
+}
+
+// Define o modelo para a tabela Usuários
+model User {
+  id       Int      @id @default(autoincrement())
+  name     String
+  email    String   @unique
+  password String
+  loans    Loan[]
+}
+
+// Define o modelo para a tabela Empréstimos
+model Loan {
+  id          Int       @id @default(autoincrement())
+  due_date    DateTime
+  return_date DateTime?
+  status      String
+  userId      Int
+  bookId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  book        Book      @relation(fields: [bookId], references: [id])
+}
+
+// Define o modelo para a tabela Autores
+model Author {
+  id   Int    @id @default(autoincrement())
+  name String
+}
+
+// Define o modelo para a tabela Gêneros
+model Genre {
+  id   Int    @id @default(autoincrement())
+  name String
+}
