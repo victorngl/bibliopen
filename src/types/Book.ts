@@ -3,7 +3,7 @@ type Book = {
     title: string,
     author: string,
     isbn: string,
-    published_year: number,
+    published_year: string,
     genre: string,
     available: boolean,
 }

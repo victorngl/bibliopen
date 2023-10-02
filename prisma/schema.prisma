@@ -15,7 +15,7 @@ model Book {
   title       String
   author      String
   isbn        String
-  published_year Int
+  published_year String
   genre       String
   available   Boolean
   loans       Loan[]
