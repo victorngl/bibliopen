@@ -11,14 +11,17 @@ datasource db {
 }
 
 model Book {
-  id          Int       @id @default(autoincrement())
-  title       String
-  author      String
-  isbn        String
+  id             Int       @id @default(autoincrement())
+  title          String
+  author         String
+  isbn           String
   published_year String
-  genre       String
-  available   Boolean
-  loans       Loan[]
+  genre_id       Int?
+  available      Boolean
+  subject        String
+  loans          Loan[]
+  genre          Genre? @relation(fields: [genre_id], references: [id])
+ 
 }
 
 // Define o modelo para a tabela Usuários
@@ -50,6 +53,7 @@ model Author {
 
 // Define o modelo para a tabela Gêneros
 model Genre {
-  id   Int    @id @default(autoincrement())
-  name String
+  id      Int    @id @default(autoincrement())
+  name    String
+  books   Book[] 
 }

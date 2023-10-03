@@ -8,10 +8,10 @@ export default function useGetBookByISBN() {
 
         if (responseJson.totalItems != 0) {
 
-            const bookInfo = {
+            const bookInfo: Book = {
                 title: responseJson.items[0].volumeInfo.title,
                 author: responseJson.items[0].volumeInfo.authors[0],
-                genre: responseJson.items[0].volumeInfo.categories[0],
+                subject: responseJson.items[0].volumeInfo.categories[0],
                 published_year: responseJson.items[0].volumeInfo.publishedDate,
                 available: false,
                 isbn: isbn,
