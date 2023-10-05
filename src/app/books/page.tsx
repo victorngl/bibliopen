@@ -6,7 +6,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import useGetInfoByISBN from "@/hooks/useGetBookByISBN";
 
 interface BookFormProps {
-    book?: Book,
+    book?: Book
 }
 
 const BookForm: FC<BookFormProps> = ({ book }) => {
@@ -16,7 +16,14 @@ const BookForm: FC<BookFormProps> = ({ book }) => {
         defaultValues: book,
       });
     
-    const onSubmit: SubmitHandler<Book> = (data) => console.log(data)
+    const onSubmit: SubmitHandler<Book> = (data) => {
+        if(book) {
+            console.log('UPDATE')
+        }
+        else {
+            console.log('CREATE')
+        }
+    }
 
     const handleSearchISBN = async () => {
 
@@ -31,8 +38,6 @@ const BookForm: FC<BookFormProps> = ({ book }) => {
         }
 
     }
-
-    console.log('render')
 
     return (
         <>
@@ -134,7 +139,7 @@ const BookForm: FC<BookFormProps> = ({ book }) => {
                         type="submit"
                         className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     >
-                        Cadastrar
+                        Salvar
                     </button>
 
                     <button

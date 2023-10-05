@@ -6,6 +6,5 @@ type Book = {
     published_year: string,
     genre?: string,
     available: boolean,
-    shelf_location: string,
     subject: string,
 }
