@@ -18,10 +18,10 @@ model Book {
   published_year String
   genre_id       Int?
   available      Boolean
+  marc           Json?
   subject        String
   loans          Loan[]
   genre          Genre? @relation(fields: [genre_id], references: [id])
- 
 }
 
 // Define o modelo para a tabela Usuários

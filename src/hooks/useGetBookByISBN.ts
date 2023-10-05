@@ -1,21 +1,24 @@
 
 export default function useGetBookByISBN() {
 
-    const getBookByISBN = async (isbn: string) => {
+    const getBookByISBN = async (isbn: string): Promise<Item | undefined> => {
 
         const response = await fetch('https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbn)
         const responseJson = await response.json()
 
         if (responseJson.totalItems != 0) {
 
-            const bookInfo: Book = {
-                title: responseJson.items[0].volumeInfo.title,
-                author: responseJson.items[0].volumeInfo.authors[0],
-                subject: responseJson.items[0].volumeInfo.categories[0],
-                published_year: responseJson.items[0].volumeInfo.publishedDate,
-                available: false,
+            const volumeInfo = responseJson.items[0].volumeInfo;
+
+            const bookInfo: Item = {
+                title: volumeInfo.title,
+                author: volumeInfo.authors,
+                subject: volumeInfo.categories,
+                published_year: volumeInfo.publishedDate,
                 isbn: isbn,
-            } as Book
+                edition: volumeInfo.contentVersion,
+                language: volumeInfo.language,
+            } 
 
             return bookInfo;
         }
@@ -23,7 +26,6 @@ export default function useGetBookByISBN() {
         return undefined;
 
     }
-
 
     return { getBookByISBN };
     

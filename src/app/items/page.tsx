@@ -4,20 +4,22 @@ import { FC } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import useGetInfoByISBN from "@/hooks/useGetBookByISBN";
+import useGetBookByMarc from "@/hooks/useGetBookByMarc";
 
-interface BookFormProps {
-    book?: Book
+interface ItemFormProps {
+    item?: Item
 }
 
-const BookForm: FC<BookFormProps> = ({ book }) => {
+const BookForm: FC<ItemFormProps> = ({ item }) => {
     const { getBookByISBN } = useGetInfoByISBN();
+    const { getBookByMarc } = useGetBookByMarc();
 
-    const { register, getValues, handleSubmit, setValue } = useForm<Book>({
-        defaultValues: book,
-      });
-    
-    const onSubmit: SubmitHandler<Book> = (data) => {
-        if(book) {
+    const { register, getValues, handleSubmit, setValue } = useForm<Item>({
+        defaultValues: item,
+    });
+
+    const onSubmit: SubmitHandler<Item> = (data) => {
+        if (item) {
             console.log('UPDATE')
         }
         else {
@@ -27,7 +29,7 @@ const BookForm: FC<BookFormProps> = ({ book }) => {
 
     const handleSearchISBN = async () => {
 
-        const book: Book | undefined = await getBookByISBN(getValues("isbn"))
+        const book: Item | undefined = await getBookByISBN(getValues("isbn"))
 
         if (book != undefined) {
             setValue("author", book.author);
@@ -36,6 +38,24 @@ const BookForm: FC<BookFormProps> = ({ book }) => {
             setValue("published_year", book.published_year);
             setValue("subject", book.subject);
         }
+
+    }
+
+    const handleSearchMARC = async () => {
+
+        const marcJson: Item | string | undefined | any  = await getBookByMarc(getValues("marc") as string)
+        
+            /*
+        if (book != undefined) {
+            setValue("author", book.author);
+            setValue("title", book.title);
+            setValue("isbn", book.isbn);
+            setValue("published_year", book.published_year);
+            setVal*/
+        
+
+            //IMPLEMENTAR AQUI 
+        console.log(marcJson[651]);
 
     }
 
@@ -56,8 +76,8 @@ const BookForm: FC<BookFormProps> = ({ book }) => {
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Número de ISBN"
                             required
-                            {...register("isbn", { required: true } )}
-                            
+                            {...register("isbn", { required: true })}
+
                         />
                     </div>
 
@@ -71,11 +91,11 @@ const BookForm: FC<BookFormProps> = ({ book }) => {
                         <input
                             type="text"
                             id="title"
-                            {...register("title", { required: true } )}
+                            {...register("title", { required: true })}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder=""
                             required
-                            
+
                         />
                     </div>
 
@@ -89,11 +109,11 @@ const BookForm: FC<BookFormProps> = ({ book }) => {
                         <input
                             type="text"
                             id="author"
-                            {...register("author", { required: true } )}
+                            {...register("author", { required: true })}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder=""
                             required
-                            
+
                         />
                     </div>
 
@@ -107,11 +127,11 @@ const BookForm: FC<BookFormProps> = ({ book }) => {
                         <input
                             type="text"
                             id="published_year"
-                            {...register("published_year", { required: true } )}
+                            {...register("published_year", { required: true })}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder=""
                             required
-                           
+
                         />
                     </div>
 
@@ -125,13 +145,31 @@ const BookForm: FC<BookFormProps> = ({ book }) => {
                         <input
                             type="text"
                             id="subject"
-                            {...register("subject", { required: true } )}
+                            {...register("subject", { required: true })}
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder=""
                             required
-                            
+
                         />
                     </div>
+
+                    <div className="">
+                        <label
+                            htmlFor="subject"
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                            MARC Tags
+                        </label>
+                        <textarea
+                            id="marc"
+                            {...register("marc", { required: false })}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder=""
+                            required
+
+                        />
+                    </div>
+
 
                 </div>
                 <div className="grid md:grid-cols-6 gap-2">
@@ -149,6 +187,14 @@ const BookForm: FC<BookFormProps> = ({ book }) => {
                     >
                         Buscar pelo ISBN
                     </button>
+
+                    <button
+                        type="button"
+                        onClick={handleSearchMARC}
+                        className="text-white whitespace-nowrap bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                    >
+                        Atualizar por MARC
+                    </button>
                 </div>
 
             </form>
@@ -160,4 +206,8 @@ const BookForm: FC<BookFormProps> = ({ book }) => {
 }
 
 export default BookForm;
+
+function useGetInfoByMarc(): { getBookByMarc: any; } {
+    throw new Error("Function not implemented.");
+}
 

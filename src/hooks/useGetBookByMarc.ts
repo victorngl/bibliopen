@@ -1,22 +1,59 @@
-
-
 export default function useGetBookByMarc() {
 
-    const getBookByMarc = async (marc: string) => {
-
-        const marc4js = require('marc4js');
-
-        let bookInfo: Book | undefined | any = undefined;
-
-        marc4js.parse(marc, { fromFormat: 'marc' }, (err: any, records: any) => {
-            if (err) {
-                console.error('Erro ao converter o registro MARC21 em JSON:', err);
-            } else {
-                // O objeto "records" agora contém o registro MARC21 convertido em JSON
-                bookInfo = JSON.stringify(records, null, 2);
+    function marc21ToJson(marc21Record: string) {
+        const lines = marc21Record.split('\n');
+        const json: any = {};
+        let currentField = '';
+      
+        lines.forEach((line: any) => {
+          if (line) {
+            const tag: any = line.substring(0, 3);
+            const indicator1 = line.charAt(4);
+            const indicator2 = line.charAt(5);
+            const subfieldCode = line.charAt(7);
+            const subfieldValue = line.substring(8);
+      
+            if (tag) {
+              if (!json[tag]) {
+                json[tag] = [];
+              }
+      
+              if (tag !== currentField) {
+                const field = {
+                  tag,
+                  indicator1,
+                  indicator2,
+                  subfields: [],
+                };
+      
+                json[tag].push(field);
+                currentField = tag;
+              }
+      
+              const subfield = {
+                code: subfieldCode,
+                value: subfieldValue,
+              };
+      
+              const lastField = json[tag][json[tag].length - 1];
+              lastField.subfields.push(subfield);
             }
+          }
         });
+      
+        return json;
+      }
 
+    const getBookByMarc = async (marc: string): Promise<Item | object | undefined> => {
+
+        
+        let bookInfo: Item | undefined  = undefined;
+
+        const marcToJson: object = marc21ToJson(marc)
+
+        //const marcReturn = JSON.stringify(marcToJson, null, 2)
+        
+        /*
         bookInfo = {
             title: 'a',
             author: 'a',
@@ -25,8 +62,9 @@ export default function useGetBookByMarc() {
             available: false,
             isbn: 'a'
         }
+        */
 
-        return bookInfo;
+        return marcToJson;
     }
 
 

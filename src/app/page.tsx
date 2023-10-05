@@ -1,20 +1,20 @@
 import Navbar from "@/components/layout/navbar/Navbar"
-import BookForm from "./books/page"
+import BookForm from "./items/page"
 
 export default function Home() {
 
-  const book: Book = {
+  const book: Item = {
     title: "O pequeno principe",
-    available: false,
-    author: "Joao Victor",
+    author: ['João Victor'],
     isbn: "123",
     published_year: "2024",
-    subject: "Historia"
+    subject: ['AAA'],
+    language: "Portuguese",
   }
 
   return (
     <>
-      <h1><BookForm book={book} /></h1>
+      <h1><BookForm item={book} /></h1>
     </>
   )
 }
