@@ -43,19 +43,19 @@ const BookForm: FC<ItemFormProps> = ({ item }) => {
 
     const handleSearchMARC = async () => {
 
-        const marcJson: Item | string | undefined | any  = await getBookByMarc(getValues("marc") as string)
+        const bookMarc: Item | string | undefined | any  = await getBookByMarc(getValues("marc") as string)
         
-            /*
-        if (book != undefined) {
-            setValue("author", book.author);
-            setValue("title", book.title);
-            setValue("isbn", book.isbn);
-            setValue("published_year", book.published_year);
-            setVal*/
+        console.log(bookMarc);
+
+        if (bookMarc != undefined) {
+            setValue("author", bookMarc.author);
+            setValue("title", bookMarc.title);
+            setValue("isbn", bookMarc.isbn);
+            setValue("published_year", bookMarc.published_year);
+            setValue("subject", bookMarc.subject);
+        }
         
 
-            //IMPLEMENTAR AQUI 
-        console.log(marcJson[651]);
 
     }
 
