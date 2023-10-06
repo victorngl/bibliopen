@@ -161,6 +161,114 @@ const BookForm: FC<ItemFormProps> = ({ item }) => {
 
                     <div className="">
                         <label
+                            htmlFor="edition"
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                            Edição
+                        </label>
+                        <input
+                            type="text"
+                            id="edition"
+                            {...register("edition", { required: true })}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder=""
+                            required
+
+                        />
+                    </div>
+
+                    <div className="">
+                        <label
+                            htmlFor="language"
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                            Idioma
+                        </label>
+                        <input
+                            type="text"
+                            id="language"
+                            {...register("language", { required: true })}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder=""
+                            required
+
+                        />
+                    </div>
+
+                    <div className="">
+                        <label
+                            htmlFor="physical_description"
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                            Descrição Física
+                        </label>
+                        <input
+                            type="text"
+                            id="physical_description"
+                            {...register("physical_description", { required: true })}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder=""
+                            required
+
+                        />
+                    </div>
+
+                    <div className="">
+                        <label
+                            htmlFor="general_notes"
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                           Notas Gerais
+                        </label>
+                        <input
+                            type="text"
+                            id="general_notes"
+                            {...register("general_notes", { required: true })}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder=""
+                            required
+
+                        />
+                    </div>
+
+                    <div className="">
+                        <label
+                            htmlFor="bibliography_notes"
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                           Notas Bibliográficas
+                        </label>
+                        <input
+                            type="text"
+                            id="bibliography_notes"
+                            {...register("bibliography_notes", { required: true })}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder=""
+                            required
+
+                        />
+                    </div>
+
+                    <div className="">
+                        <label
+                            htmlFor="dewey"
+                            className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                        >
+                           Código Dewey
+                        </label>
+                        <input
+                            type="text"
+                            id="dewey"
+                            {...register("dewey", { required: true })}
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholder=""
+                            required
+
+                        />
+                    </div>
+
+                    <div className="">
+                        <label
                             htmlFor="subject"
                             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                         >
