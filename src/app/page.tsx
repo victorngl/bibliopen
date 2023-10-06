@@ -1,8 +1,6 @@
-import Navbar from "@/components/layout/navbar/Navbar"
 import BookForm from "./items/page"
 
 export default function Home() {
-
   const book: Item = {
     title: "O pequeno principe",
     author: ['João Victor'],
@@ -15,6 +13,10 @@ export default function Home() {
   return (
     <>
       <h1><BookForm item={book} /></h1>
+
+      <form>
+        <h1></h1>
+      </form>
     </>
   )
 }

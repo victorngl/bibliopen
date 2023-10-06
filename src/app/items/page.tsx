@@ -1,16 +1,19 @@
 'use client'
 
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 import useGetInfoByISBN from "@/hooks/useGetBookByISBN";
 import useGetBookByMarc from "@/hooks/useGetBookByMarc";
+import ErrorBoundary from "@/components/utils/ErrorBoundary";
 
 interface ItemFormProps {
     item?: Item
 }
 
 const BookForm: FC<ItemFormProps> = ({ item }) => {
+    const [error, setError] = useState<string>('');
+    
     const { getBookByISBN } = useGetInfoByISBN();
     const { getBookByMarc } = useGetBookByMarc();
 
@@ -18,6 +21,7 @@ const BookForm: FC<ItemFormProps> = ({ item }) => {
         defaultValues: item,
     });
 
+    
     const onSubmit: SubmitHandler<Item> = (data) => {
         if (item) {
             console.log('UPDATE')
@@ -37,13 +41,22 @@ const BookForm: FC<ItemFormProps> = ({ item }) => {
             setValue("isbn", book.isbn);
             setValue("published_year", book.published_year);
             setValue("subject", book.subject);
+            
+        }
+        else if(book == undefined) {
+
+            setError('ISBN não encontrado.');
+
+            setTimeout( () => {
+                setError('');
+            }, 2000)
         }
 
     }
 
-    const handleSearchMARC = async () => {
+    const handleSearchMARC = () => {
 
-        const bookMarc: Item | string | undefined | any  = await getBookByMarc(getValues("marc") as string)
+        const bookMarc: Item | undefined = getBookByMarc(getValues("marc") as string)
         
         console.log(bookMarc);
 
@@ -55,12 +68,13 @@ const BookForm: FC<ItemFormProps> = ({ item }) => {
             setValue("subject", bookMarc.subject);
         }
         
-
-
+        
     }
 
     return (
         <>
+            {error && <ErrorBoundary>{error}</ErrorBoundary>}
+
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="grid gap-6 mb-6 md:grid-cols-3">
                     <div className="">

@@ -1,28 +1,9 @@
-enum MARC_21_INDEXES {
-  ISBN = '020',
-  Title = 245,
-  PublicationInfo = '260',
-  Subjects = '650',
-  PersonalAuthor = '100',
-  Edition = '250',
-  ControlInfo = '008',
-  PhysicalDescription = '300',
-  GeneralNotes = '500',
-  ContentNote = '505',
-  IndexedTerms = '653',
-}
 
-function removerCaracteresEspeciais(texto: string): string {
-  // Use a função replace() com uma expressão regular para remover os caracteres desejados
-  const textoLimpo = texto.replace(/\|a |\|b |\|c /g, '');
 
-  return textoLimpo;
-}
 
 export default function useGetBookByMarc() {
 
-
-  const getBookByMarc = async (marc: string): Promise<Item | undefined> => {
+  const getBookByMarc = (marc: string): Item | undefined => {
 
     const bookInfo: Item = extrairItensDeMARC21(marc);
 
