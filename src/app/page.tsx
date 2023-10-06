@@ -1,4 +1,4 @@
-import BookForm from "./items/page"
+
 
 export default function Home() {
   const book: Item = {
@@ -12,11 +12,7 @@ export default function Home() {
 
   return (
     <>
-      <h1><BookForm item={book} /></h1>
 
-      <form>
-        <h1></h1>
-      </form>
     </>
   )
 }
